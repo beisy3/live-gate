@@ -26,16 +26,16 @@ const dummy_data= {
             "delay":"65",
             "estimatedRunway":null,
             "estimatedTime":"2025-12-24T14:35:00.000",
-            "gate":"D2",
-            "iataCode":"MAN",
+            "gate":"E4",
+            "iataCode":"LON",
             "icaoCode":"EGCC",
             "scheduledTime":"2025-12-24T13:30:00.000",
-            "terminal":"2"
+            "terminal":"3"
         },
         "flight":{
-            "iataNumber":"MS782",
-            "icaoNumber":"MSR782",
-            "number":"782"
+            "iataNumber":"EZY576",
+            "icaoNumber":"576",
+            "number":"576"
         },
         "status":"active",
         "type":"departure"
