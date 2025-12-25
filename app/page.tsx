@@ -17,8 +17,8 @@ export default async function HomePage() {
   let x
   try{
     const client = await clientPromise;
-    const db = client.db('live-gate');
-    x = await db.collection('gate').find({}).toArray()
+    const db = client.db('Gate-data');
+    x = await db.collection('flight-info').find({}).toArray()
     console.log('x', x)
   } catch(err){
     console.log(err)
