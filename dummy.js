@@ -1,0 +1,45 @@
+const dummy_data= {
+    "pagination":
+    {"limit":null,"offset":null,"count":1,"total":1},
+    "data":
+    [{"aircraft":{"icao24":"010245","icaoCode":"A21N","regNumber":"SU-GFU"},
+        "airline":{"iataCode":"MS","icaoCode":"MSR","name":"EgyptAir"},
+        "arrival":
+        {
+            "actualRunway":null,
+            "actualTime":null,
+            "baggage":null,
+            "delay":null,
+            "estimatedRunway":null,
+            "estimatedTime":null,
+            "gate":null,
+            "iataCode":"CAI",
+            "icaoCode":"HECA",
+            "scheduledTime":"2025-12-24T20:45:00.000",
+            "terminal":"3"
+        },
+        "codeshared":null,
+        "departure":{
+            "actualRunway":null,
+            "actualTime":null,
+            "baggage":null,
+            "delay":"65",
+            "estimatedRunway":null,
+            "estimatedTime":"2025-12-24T14:35:00.000",
+            "gate":"D2",
+            "iataCode":"MAN",
+            "icaoCode":"EGCC",
+            "scheduledTime":"2025-12-24T13:30:00.000",
+            "terminal":"2"
+        },
+        "flight":{
+            "iataNumber":"MS782",
+            "icaoNumber":"MSR782",
+            "number":"782"
+        },
+        "status":"active",
+        "type":"departure"
+    }]
+}
+
+export default dummy_data;
