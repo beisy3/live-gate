@@ -10,16 +10,16 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
     let x
     try{
       const client = await clientPromise;
-      const db = client.db('live-gate');
-      x = await db.collection('gate').find({'flight_number': flight_number, 'departure_airport' : departure_city}).toArray()
-      if(!x.length){
-        console.log('fetching_data')
+      //const db = client.db('live-gate');
+      //x = await db.collection('gate').find({'flight_number': flight_number, 'departure_airport' : departure_city}).toArray()
+      //if(!x.length){
+      /*  console.log('fetching_data')
         //find new information
       }
       else{
         console.log(x[0].departure_airport)
         console.log('x', x)
-      }
+      }*/
       
     } catch(err){
       console.log(err)
