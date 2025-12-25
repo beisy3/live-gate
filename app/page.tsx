@@ -28,7 +28,7 @@ export default async function HomePage() {
   }
   return (
     <div>
-      <div>{x}</div>
+      <div>departure airport: {x[0].departure_airport}</div>
       <Status/>
       <Form action={'/flight/'}>
       <Label htmlFor="flight-number">Please enter your flight number:</Label>
