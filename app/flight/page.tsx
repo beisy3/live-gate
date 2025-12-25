@@ -15,6 +15,5 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
     console.log('flight Number:', flight_number);
     console.log('departure City:', departure_city);
 
-
     return <div>Flight Page</div>;
 }
