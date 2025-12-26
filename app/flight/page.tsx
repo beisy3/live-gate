@@ -20,7 +20,7 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
       if(!flight_document.length){
         console.log('fetching_data')
         const data : flightresponse = generate_flight_data({departure_airport: departure_city, flight_number: flight_number});
-        const new_entry : flightentry = {
+        const new_entry = {
             date : data.data[0].departure.scheduledTime,
             airport_code : data.data[0].departure.iataCode,
             departure_airport : data.data[0].departure.iataCode,
