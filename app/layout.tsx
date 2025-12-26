@@ -28,6 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="bg-red-600 text-center">Warning! The website is still in concept stage and real life data is inaccurate</div>
         <div className="bg-black py-12 text-center text-white text-2xl font-bold">
           <Link href={'/'} className="w-fit">Gate Information sharing</Link>
         </div>

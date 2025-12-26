@@ -35,10 +35,6 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
         )
         const new_record = await db.collection('gate').find(re.insertedId).toArray()
         flight_document = new_record
-        console.log('Inserted new entry:', re);
-        //const response = await fetch(`https://api.aviationstack.com/v1/timetable?iataCode=${departure_city}&type=departure&airline_iata=${flight_number}&access_key=f5994424a847443c2b6bfc9582bfb8f1`)
-        //const data  : flightresponse = await response.json();        
-        const gate = data.data[0].departure.gate;
       }
       else{
         console.log(flight_document[0].departure_airport)

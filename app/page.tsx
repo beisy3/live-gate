@@ -20,6 +20,8 @@ export default async function HomePage() {
     )
   }
   return (
+  <>
+    <div className='bg-gray-300 text-center py-2'>Flying? Get highly detailed updates about the gate you are flying from</div>
     <div className="max-w-96 m-auto mt-16">
       <Form action={'/flight/'}>
       <div className="grid gap-8">
@@ -35,5 +37,6 @@ export default async function HomePage() {
       <Button className="mt-7 w-full" type="submit">Find gate information</Button>
       </Form>
     </div>
+    </>
   );
 }
