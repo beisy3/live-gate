@@ -9,7 +9,7 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
     const params = await searchParams;
     const { flight_number, departure_city } = params;
 
-    let flight_document : flightentry[]
+    let flight_document
     try{
       const client = await clientPromise;
       if(!client){
