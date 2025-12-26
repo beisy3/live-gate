@@ -1,9 +1,9 @@
 import flightresponse from '@/Type/flight_data';
-import dummy_data from '@/dummy.js';
 import clientPromise from '@/lib/mongodb';
 import flightentry from '@/Type/flight_database_entry'
 import generate_flight_data from '@/generate_flight_data';
-  
+import UpdateGate from './updated_gate_info';
+
 export default async function Page({searchParams} : {searchParams: Promise<{flight_number: string, departure_city: string}>}) {
 
     const params = await searchParams;
@@ -30,6 +30,8 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
         const re = await db.collection('gate').insertOne(
           new_entry
         )
+        const new_record = await db.collection('gate').find(re.insertedId).toArray()
+        x = new_record
         console.log('Inserted new entry:', re);
         //const response = await fetch(`https://api.aviationstack.com/v1/timetable?iataCode=${departure_city}&type=departure&airline_iata=${flight_number}&access_key=f5994424a847443c2b6bfc9582bfb8f1`)
         //const data  : flightresponse = await response.json();        
@@ -51,11 +53,20 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
 
     return (
       <>
-        <div>Flight Page</div>
-        <div>Flight Number: {flight_number}</div>
-        <div>Departure City: {departure_city}</div>
-        <div>Gate: {x[0].gate}</div>
-        <div>Boarding status: {x[0].status}</div>
+      <div className="m-auto pt-16 max-w-96 pb-24">
+        <div className='flex justify-between mb-8'>
+          <div className='p-2 bg-gray-100 rounded-md'>
+          <div>Flight Number:</div><div className="font-bold">{flight_number}</div>
+          </div>
+          <div className='p-2 bg-gray-100 rounded-md'>
+          <div>Departure City:</div><div className="font-bold">{departure_city}</div>
+          </div>
+          <div className='p-2 bg-gray-100 rounded-md'>
+          <div>Gate:</div><div className="font-bold">{x[0].gate}</div>
+          </div>
+        </div>
+        <UpdateGate flight_id={x[0]._id.toString()} gate_status={'Not known'} />
+      </div>
       </>
     );
 }

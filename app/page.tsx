@@ -2,18 +2,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Form from 'next/form';
-import { dbConnectionStatus } from "@/db/connection-status";
 import clientPromise from '@/lib/mongodb';
 
-
 export default async function HomePage() {
-  let st
-  async function Status(){
-    st = await dbConnectionStatus()
-    return(
-      <div>{st}</div>
-    )
-  }
   let x
   try{
     const client = await clientPromise;
@@ -22,7 +13,6 @@ export default async function HomePage() {
     }
     const db = client.db('Gate-data');
     x = await db.collection('flight-info').find({}).toArray()
-    console.log('x', x)
   } catch(err){
     console.log(err)
     return(
@@ -30,15 +20,19 @@ export default async function HomePage() {
     )
   }
   return (
-    <div>
-      <div>departure airport: {x[0].departure_airport}</div>
-      <Status/>
+    <div className="max-w-96 m-auto mt-16">
       <Form action={'/flight/'}>
-      <Label htmlFor="flight-number">Please enter your flight number:</Label>
-      <Input id="flight-number" name="flight_number" placeholder="Flight Number"/>
-      <Label htmlFor="departure-city">Where are you departing from?</Label>
-      <Input id="departure-city" name="departure_city" placeholder="Departure City"/>
-      <Button type="submit">Find details</Button>
+      <div className="grid gap-8">
+        <div className="grid gap-3">
+          <Label htmlFor="flight-number">Please enter your flight number:</Label>
+          <Input id="flight-number" name="flight_number" placeholder="Flight Number"/>
+        </div>
+        <div className="grid gap-3">
+          <Label htmlFor="departure-city">Where are you departing from?</Label>
+          <Input id="departure-city" name="departure_city" placeholder="Departure City"/>
+        </div>
+      </div>
+      <Button className="mt-7 w-full" type="submit">Find gate information</Button>
       </Form>
     </div>
   );
