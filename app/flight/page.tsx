@@ -9,15 +9,15 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
     const params = await searchParams;
     const { flight_number, departure_city } = params;
 
-    let x
+    let flight_document : flightentry[]
     try{
       const client = await clientPromise;
       if(!client){
         return <div>Error connecting to database</div>
       }
       const db = client.db('live-gate');
-      x = await db.collection('gate').find({'flight_number': flight_number, 'departure_airport' : departure_city}).toArray()
-      if(!x.length){
+      flight_document = await db.collection('gate').find({'flight_number': flight_number, 'departure_airport' : departure_city}).toArray()
+      if(!flight_document.length){
         console.log('fetching_data')
         const data : flightresponse = generate_flight_data({departure_airport: departure_city, flight_number: flight_number});
         const new_entry : flightentry = {
@@ -26,20 +26,23 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
             departure_airport : data.data[0].departure.iataCode,
             flight_number : data.data[0].flight.iataNumber,
             gate : data.data[0].departure.gate ? data.data[0].departure.gate : 'Not Known',
+            gate_status : 'Not known',
+            queue_status : 'Not known',
+            crowd_status : 'Not known',
         }
         const re = await db.collection('gate').insertOne(
           new_entry
         )
         const new_record = await db.collection('gate').find(re.insertedId).toArray()
-        x = new_record
+        flight_document = new_record
         console.log('Inserted new entry:', re);
         //const response = await fetch(`https://api.aviationstack.com/v1/timetable?iataCode=${departure_city}&type=departure&airline_iata=${flight_number}&access_key=f5994424a847443c2b6bfc9582bfb8f1`)
         //const data  : flightresponse = await response.json();        
         const gate = data.data[0].departure.gate;
       }
       else{
-        console.log(x[0].departure_airport)
-        console.log('x', x)
+        console.log(flight_document[0].departure_airport)
+        console.log('flight_document', flight_document)
       }
     } catch(err){
       console.log(err)
@@ -62,10 +65,15 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
           <div>Departure City:</div><div className="font-bold">{departure_city}</div>
           </div>
           <div className='p-2 bg-gray-100 rounded-md'>
-          <div>Gate:</div><div className="font-bold">{x[0].gate}</div>
+          <div>Gate:</div><div className="font-bold">{flight_document[0].gate}</div>
           </div>
         </div>
-        <UpdateGate flight_id={x[0]._id.toString()} gate_status={'Not known'} />
+        <UpdateGate 
+         flight_id={flight_document[0]._id.toString()}
+         gate_status={flight_document[0].gate_status} 
+         queue_status={flight_document[0].queue_status} 
+         crowd_status={flight_document[0].crowd_status}
+        />
       </div>
       </>
     );
