@@ -74,7 +74,7 @@ export default function SearchAirports({airports}: {airports: string}) {
         {searchedAirports.length > 0 ?
         <div className='grid gap-1'>
             {max_visible.map((air)=>(
-                <div onClick={()=>{setAirport(air.name)}} className='bg-gray-50 hover:bg-gray-100 pl-4 py-3' key={air._id}>
+                <div onClick={()=>{setAirport(air.name), setSearchedAirports([])}} className='bg-gray-50 hover:bg-gray-100 pl-4 py-3' key={air._id}>
                     {air.name} ({air.iata})
                 </div>
             ))}
