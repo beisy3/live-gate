@@ -37,7 +37,7 @@ export default async function HomePage() {
       <div className="grid gap-8">
         <div className="grid gap-3">
           <Label htmlFor="flight-number">Please enter your flight number:</Label>
-          <Input id="flight-number" name="flight_number" placeholder="Flight Number"/>
+          <Input required id="flight-number" name="flight_number" placeholder="Flight Number"/>
         </div>
         <div className="grid gap-3">
           <Label htmlFor="departure-city">Where are you departing from?</Label>

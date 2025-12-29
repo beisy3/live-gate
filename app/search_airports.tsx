@@ -24,7 +24,7 @@ export default function SearchAirports({airports}: {airports: string}) {
 
     const airports_parsed : airportbyname[] = JSON.parse(airports);
     const [searchedAirports, setSearchedAirports] = useState<airportbyname[]>([]);
-    const [airport, setAirport] = useState<string>('');
+    const [airport, setAirport] = useState<{visible: string, value: string}>({visible: '', value: ''});
     
     function handle_input(usr_inp: string){
         if(usr_inp.length === 0){
@@ -69,12 +69,13 @@ export default function SearchAirports({airports}: {airports: string}) {
 
 
     return (
-    <>
-        <Input onChange={(usr_inp)=>{handle_input(usr_inp.target.value), setAirport(usr_inp.target.value)}} placeholder="Search Airports"  value={airport}/>
+        <>
+        <input required type='hidden' name='departure_city' value={airport.value}/>
+        <Input required onChange={(usr_inp)=>{handle_input(usr_inp.target.value), setAirport({visible: usr_inp.target.value, value: ''})}} placeholder="Search Airports"  value={airport.visible}/>
         {searchedAirports.length > 0 ?
         <div className='grid gap-1'>
             {max_visible.map((air)=>(
-                <div onClick={()=>{setAirport(air.name), setSearchedAirports([])}} className='bg-gray-50 hover:bg-gray-100 pl-4 py-3' key={air._id}>
+                <div onClick={()=>{setAirport({visible:`${air.name} (${air.iata})`,  value : air._id}), setSearchedAirports([])}} className='bg-gray-50 hover:bg-gray-100 pl-4 py-3' key={air._id}>
                     {air.name} ({air.iata})
                 </div>
             ))}

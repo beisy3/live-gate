@@ -2,7 +2,7 @@ import { randomInt } from "node:crypto";
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-export default function generate_flight_data({departure_airport, flight_number}) {
+export default function generate_flight_data({iata_code, flight_number}) {
     return {
         "pagination":
         {"limit":null,"offset":null,"count":1,"total":1},
@@ -32,7 +32,7 @@ export default function generate_flight_data({departure_airport, flight_number})
             "estimatedRunway":null,
             "estimatedTime":"2025-12-24T14:35:00.000",
             "gate": alphabet[randomInt(0, alphabet.length)] + randomInt(1, 30).toString(),
-            "iataCode":departure_airport,
+            "iataCode":iata_code,
             "icaoCode":"EGCC",
             "scheduledTime":new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
             "terminal": randomInt(1, 4).toString()
