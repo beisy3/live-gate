@@ -96,41 +96,38 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
     return (
         <>
         <DisplayChangable
-            tag="Current Gate Status:"
+            tag="Gate Status:"
             display={gateStatus}
-            classes='font-bold'
+            classes='font-semibold'
         />
 
         {gateStatus === boarding_states[0] || gateStatus === boarding_states[1] ? (
             <DisplayChangable
-                tag="Current Crowd Status:"
+                tag="Crowd Status:"
                 display={crowdStatus}
-                classes='font-bold'
+                classes='font-semibold'
             />
         ) : <DisplayChangable
-                tag="Current Crowd Status:"
+                tag="Crowd Status:"
                 display={'Boarding already complete'}
                 classes='italic'
         />}
 
-        {gateStatus === boarding_states[1] || gateStatus === boarding_states[0] ? (
+        {gateStatus === boarding_states[0] || gateStatus === boarding_states[1] ? (
             <>
             <DisplayChangable
-                tag="Current Queue Status:"
+                tag="Queue Status:"
                 display={queueStatus}
-                classes='font-bold'
+                classes='font-semibold'
             />
             </>
         ) : <DisplayChangable
-                tag="Current Crowd Status:"
+                tag="Queue Status:"
                 display={'Boarding already complete'}
                 classes='italic'
         />}
-
-        <div className='mt-12'>
-            <div className='mb-6'>Let people know what the boarding status is</div>
-            <div className='grid gap-8'>
-                
+        <div className='grid gap-5 w-full pl-3 mt-12'>
+        <div>                
             <Drawer>
             <DrawerTrigger asChild><Button>Update boarding status</Button></DrawerTrigger>
             <DrawerContent>
@@ -152,39 +149,16 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
                 </DrawerFooter>
             </DrawerContent>
             </Drawer>
-            </div>
         </div>
-        <div className='mt-12'>
-            <div className='mb-6'>Let people know the current queue is upto</div>
-                    <div className='grid gap-8'>
+        <div>
             <Drawer>
-            <DrawerTrigger asChild><Button>Update queue status</Button></DrawerTrigger>
-            <DrawerContent>
-                <DrawerHeader>
-                <DrawerTitle>Update Queue Status</DrawerTitle>
-                <DrawerDescription>Give people live status of queue.</DrawerDescription>
-                </DrawerHeader>
-                <DrawerFooter>
-                    {queue_states.map((state) => (
-                        <DrawerClose key={state} asChild>
-                        <Button key={state} className='w-64 m-auto' onClick={() => updateQueueStatus(state)} >
-                            {state}
-                        </Button>
-                        </DrawerClose>
-                    ))}
-                <DrawerClose asChild>
-                    <Button className='w-64 m-auto' variant={'secondary'}>Close</Button>
-                </DrawerClose>
-                </DrawerFooter>
-            </DrawerContent>
-            </Drawer>
-            </div>
-        </div>
-        <div className='mt-12'>
-            <div className='mb-6'>Let people know how many people are still by the gate</div>
-                    <div className='grid gap-8'>
-            <Drawer>
+            {
+            gateStatus === boarding_states[0] || gateStatus === boarding_states[1] ? (
             <DrawerTrigger asChild><Button>Update crowd status</Button></DrawerTrigger>
+            ):(
+            <   DrawerTrigger asChild><Button disabled>Update crowd status</Button></DrawerTrigger>
+            )
+            }
             <DrawerContent>
                 <DrawerHeader>
                 <DrawerTitle>Update Crowd Status</DrawerTitle>
@@ -204,7 +178,35 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
                 </DrawerFooter>
             </DrawerContent>
             </Drawer>
-            </div>
+        </div>
+        <div>
+            <Drawer>
+            {gateStatus === boarding_states[0] || gateStatus === boarding_states[1] ? (
+            <DrawerTrigger asChild><Button>Update queue status</Button></DrawerTrigger>
+            ):(
+            <   DrawerTrigger asChild><Button disabled>Update queue status</Button></DrawerTrigger>
+            )
+            }
+            <DrawerContent>
+                <DrawerHeader>
+                <DrawerTitle>Update Queue Status</DrawerTitle>
+                <DrawerDescription>Give people live status of queue.</DrawerDescription>
+                </DrawerHeader>
+                <DrawerFooter>
+                    {queue_states.map((state) => (
+                        <DrawerClose key={state} asChild>
+                        <Button key={state} className='w-64 m-auto' onClick={() => updateQueueStatus(state)} >
+                            {state}
+                        </Button>
+                        </DrawerClose>
+                    ))}
+                <DrawerClose asChild>
+                    <Button className='w-64 m-auto' variant={'secondary'}>Close</Button>
+                </DrawerClose>
+                </DrawerFooter>
+            </DrawerContent>
+            </Drawer>
+        </div>
         </div>
         </>
     )

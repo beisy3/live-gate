@@ -76,9 +76,9 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
             <FlightInformation tag="Departure City" display={airport.name} />
           </div>
           <DisplayChangable
-              tag="Current Gate:"
+              tag="Gate:"
               display={flight_document[0].gate}
-              classes='font-bold'
+              classes='font-semibold'
           />
         <UpdateGate 
          flight_id={flight_document[0]._id.toString()}
