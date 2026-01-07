@@ -98,22 +98,35 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
         <DisplayChangable
             tag="Current Gate Status:"
             display={gateStatus}
+            classes='font-bold'
         />
-        {gateStatus == boarding_states[0] ? (
-            <>
-            {console.log('Rendering queue status')}
-            <DisplayChangable
-                tag="Current Queue Status:"
-                display={queueStatus}
-            />
-            </>
-        ) : null}
-        {gateStatus === boarding_states[2] ? (
+
+        {gateStatus === boarding_states[0] || gateStatus === boarding_states[1] ? (
             <DisplayChangable
                 tag="Current Crowd Status:"
                 display={crowdStatus}
+                classes='font-bold'
             />
-        ) : null}
+        ) : <DisplayChangable
+                tag="Current Crowd Status:"
+                display={'Boarding already complete'}
+                classes='italic'
+        />}
+
+        {gateStatus === boarding_states[1] || gateStatus === boarding_states[0] ? (
+            <>
+            <DisplayChangable
+                tag="Current Queue Status:"
+                display={queueStatus}
+                classes='font-bold'
+            />
+            </>
+        ) : <DisplayChangable
+                tag="Current Crowd Status:"
+                display={'Boarding already complete'}
+                classes='italic'
+        />}
+
         <div className='mt-12'>
             <div className='mb-6'>Let people know what the boarding status is</div>
             <div className='grid gap-8'>

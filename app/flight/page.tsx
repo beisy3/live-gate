@@ -70,20 +70,23 @@ export default async function Page({searchParams} : {searchParams: Promise<{flig
     return (
       <>
       <div className="m-auto pt-16 max-w-96 pb-24">
-        <div className='mb-8 grid gap-4'>
-          <FlightInformation tag="Flight Number" display={flight_number} />
-          <FlightInformation tag="Departure City" display={airport.name} />
-        </div>
-        <DisplayChangable
-            tag="Current Gate:"
-            display={flight_document[0].gate}
-        />
+        <div className='bg-gray-400 p-4 rounded-md'>
+          <div className='mb-8 grid gap-4'>
+            <FlightInformation tag="Flight Number" display={flight_number} />
+            <FlightInformation tag="Departure City" display={airport.name} />
+          </div>
+          <DisplayChangable
+              tag="Current Gate:"
+              display={flight_document[0].gate}
+              classes='font-bold'
+          />
         <UpdateGate 
          flight_id={flight_document[0]._id.toString()}
          gate_status={flight_document[0].gate_status} 
          queue_status={flight_document[0].queue_status} 
          crowd_status={flight_document[0].crowd_status}
         />
+        </div>
       </div>
       </>
     );
