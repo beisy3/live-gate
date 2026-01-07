@@ -151,13 +151,17 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
                 <DrawerFooter>
                     {boarding_states.map((state) => (
                         <DrawerClose key={state}>
+                            <div>
                         <Button className='w-64 m-auto' onClick={() => updateGateStatus({new_gate_status: state, flight_id: flight_id})} >
                             {state}
                         </Button>
+                        </div>
                         </DrawerClose>
                     ))}
                 <DrawerClose>
+                    <div>
                     <Button variant="outline">Cancel</Button>
+                    </div>
                 </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>
