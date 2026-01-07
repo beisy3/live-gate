@@ -99,13 +99,16 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
             tag="Current Gate Status:"
             display={gateStatus}
         />
-        {gateStatus === 'Boarding' ? (
+        {gateStatus == boarding_states[0] ? (
+            <>
+            {console.log('Rendering queue status')}
             <DisplayChangable
                 tag="Current Queue Status:"
                 display={queueStatus}
             />
+            </>
         ) : null}
-        {gateStatus === 'Not Boarding' ? (
+        {gateStatus === boarding_states[2] ? (
             <DisplayChangable
                 tag="Current Crowd Status:"
                 display={crowdStatus}
