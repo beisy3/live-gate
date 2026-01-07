@@ -90,32 +90,6 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
             console.error('Error:', error);
         });
     }
-
-    function UpdateDrawer({trigger, title, subtitle, options} : { trigger: string, title: string, subtitle: string, options: string[]}, callback) {
-        return (
-            <Drawer>
-                <DrawerTrigger>{trigger}</DrawerTrigger>
-                <DrawerContent>
-                    <DrawerHeader>
-                    <DrawerTitle>{title}</DrawerTitle>
-                    <DrawerDescription>{subtitle}</DrawerDescription>
-                    </DrawerHeader>
-                    <DrawerFooter>
-                        {options.map((state) => (
-                            <DrawerClose key={state}>
-                            <Button className='w-64 m-auto' onClick={() => callback} >
-                                {state}
-                            </Button>
-                            </DrawerClose>
-                        ))}
-                    <DrawerClose>
-                        <Button variant="outline">Cancel</Button>
-                    </DrawerClose>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>           
-        )
-    }
     const boarding_states = ['Boarding not yet commenced', 'Currently boarding', 'Boarding complete'];
     const queue_states = [ 'Queues 45min+', 'Queues 30-45min', 'Queues 15-30min', 'Queues 10-15min', 'Short queue 5-10min', 'Very short less then 5min', 'Almost Finished' ];
     const crowd_states = ['Lots of People (300+)', 'Not so Many People (150)', 'Few people (50)'];
@@ -142,7 +116,7 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
             <div className='grid gap-8'>
                 
             <Drawer>
-            <DrawerTrigger>Update boarding status</DrawerTrigger>
+            <DrawerTrigger asChild><Button>Update boarding status</Button></DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
                 <DrawerTitle>Update Boarding Status</DrawerTitle>
@@ -150,18 +124,14 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
                 </DrawerHeader>
                 <DrawerFooter>
                     {boarding_states.map((state) => (
-                        <DrawerClose key={state}>
-                            <div>
-                        <Button className='w-64 m-auto' onClick={() => updateGateStatus({new_gate_status: state, flight_id: flight_id})} >
+                        <DrawerClose key={state} asChild>
+                        <Button key={state} className='w-64 m-auto' onClick={() => updateGateStatus({new_gate_status: state, flight_id: flight_id})} >
                             {state}
                         </Button>
-                        </div>
                         </DrawerClose>
                     ))}
-                <DrawerClose>
-                    <div>
-                    <Button variant="outline">Cancel</Button>
-                    </div>
+                <DrawerClose asChild>
+                    <Button className='w-64 m-auto' variant="outline">Close</Button>
                 </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>
@@ -170,22 +140,54 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
         </div>
         <div className='mt-12'>
             <div className='mb-6'>Let people know the current queue is upto</div>
-            <div className='grid gap-8'>
-            {queue_states.map((state) => (
-                <Button key={state} onClick={() => updateQueueStatus(state)}>
-                    {state}
-                </Button>
-            ))}
+                    <div className='grid gap-8'>
+            <Drawer>
+            <DrawerTrigger asChild><Button>Update queue status</Button></DrawerTrigger>
+            <DrawerContent>
+                <DrawerHeader>
+                <DrawerTitle>Update Queue Status</DrawerTitle>
+                <DrawerDescription>Give people live status of queue.</DrawerDescription>
+                </DrawerHeader>
+                <DrawerFooter>
+                    {queue_states.map((state) => (
+                        <DrawerClose key={state} asChild>
+                        <Button key={state} className='w-64 m-auto' onClick={() => updateQueueStatus(state)} >
+                            {state}
+                        </Button>
+                        </DrawerClose>
+                    ))}
+                <DrawerClose asChild>
+                    <Button className='w-64 m-auto' variant={'secondary'}>Close</Button>
+                </DrawerClose>
+                </DrawerFooter>
+            </DrawerContent>
+            </Drawer>
             </div>
         </div>
         <div className='mt-12'>
             <div className='mb-6'>Let people know how many people are still by the gate</div>
-            <div className='grid gap-8'>
-            {crowd_states.map((state) => (
-                <Button key={state} onClick={() => updateCrowdStatus(state)}>
-                    {state}
-                </Button>
-            ))}
+                    <div className='grid gap-8'>
+            <Drawer>
+            <DrawerTrigger asChild><Button>Update crowd status</Button></DrawerTrigger>
+            <DrawerContent>
+                <DrawerHeader>
+                <DrawerTitle>Update Crowd Status</DrawerTitle>
+                <DrawerDescription>Give people live status of crowd.</DrawerDescription>
+                </DrawerHeader>
+                <DrawerFooter>
+                    {crowd_states.map((state) => (
+                        <DrawerClose key={state} asChild>
+                        <Button key={state} className='w-64 m-auto' onClick={() => updateCrowdStatus(state)} >
+                            {state}
+                        </Button>
+                        </DrawerClose>
+                    ))}
+                <DrawerClose asChild>
+                    <Button className='w-64 m-auto' variant={'secondary'}>Close</Button>
+                </DrawerClose>
+                </DrawerFooter>
+            </DrawerContent>
+            </Drawer>
             </div>
         </div>
         </>
