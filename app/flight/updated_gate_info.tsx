@@ -127,6 +127,7 @@ export default function UpdateGate({flight_id, gate_status, queue_status, crowd_
                 classes='italic'
         />}
         <div className='grid gap-5 w-full pl-3 mt-12'>
+            <div className='py-4'>Share updates about the gate your flying from</div>
         <div>                
             <Drawer>
             <DrawerTrigger asChild><Button>Update boarding status</Button></DrawerTrigger>
